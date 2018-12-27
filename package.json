@@ -4,15 +4,31 @@
   "description": "",
   "main": "server/service.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "localTest": "SET NODE_ENV=test&& eslint bin server && nyc mocha --recursive --exit test",
+    "test": "NODE_ENV=test && eslint bin server && nyc mocha --recursive --exit test",
     "start": "node bin/run.js"
+  },
+  "engines":{
+    "node" : "10.14.1"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/buhaytza2005/iris.git"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^3.6.0",
+    "@slack/client": "^4.8.0",
     "body-parser": "^1.18.3",
+    "bunyan": "^1.8.12",
+    "dotenv": "^6.2.0",
     "express": "^4.14.0",
     "superagent": "^4.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "should": "^13.2.3",
+    "supertest": "^3.3.0"
   }
 }
