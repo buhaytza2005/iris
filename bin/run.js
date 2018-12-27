@@ -1,15 +1,15 @@
-'use strict';
-const config = require('../config')
-const slackClient = require('../server/slackClient');
-const service = require('../server/service')(config);
-const http = require('http');
+"use strict";
+const config = require("../config");
+const slackClient = require("../server/slackClient");
+const service = require("../server/service")(config);
+const http = require("http");
 const server = http.createServer(service);
 const bodyParser = require("body-parser") ;
 
 const witToken = config.witToken;
 const witClient = require("../server/witClient")(witToken);
 const slackToken = config.slackToken;
-const slackLogLevel = 'debug';
+const slackLogLevel = "debug";
 
 
 service.use(bodyParser.json());
@@ -22,15 +22,15 @@ rtm.start();
 
 slackClient.addAuthenticatedHandler(rtm, () => server.listen(process.env.PORT || 5000));
 
-server.on('listening', function() {
-    console.log(`IRIS is listening on ${server.address().port} in ${service.get('env')} mode.`);
+server.on("listening", function() {
+    console.log(`IRIS is listening on ${server.address().port} in ${service.get("env")} mode.`);
 });
 
 
 //my own stuff - had to authenticate the url
 service.get("/", (req, res) => {
-    console.log("Yeah!!!!")
-    res.end("Finally baby!!!!!")
+    console.log("Yeah!!!!");
+    res.end("Finally baby!!!!!");
 });
 
 // service.post("/post", (req, res) => {

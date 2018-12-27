@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const RtmClient = require('@slack/client').RTMClient;
+const RtmClient = require("@slack/client").RTMClient;
 
 let rtm = null;
 let nlp = null;
@@ -22,7 +22,7 @@ function handleOnMessage(message) {
             
             try {
                 if (!res.intent || !res.intent[0] || !res.intent[0].value){
-                    throw new Error("Could not extract intent")
+                    throw new Error("Could not extract intent");
                 }
 
                 const intent = require("./intents/" + res.intent[0].value + "Intent");
@@ -30,14 +30,14 @@ function handleOnMessage(message) {
                 intent.process(res, registry, (error, response) => {
                     if (error){
                         console.log(error.message);
-                        return
+                        return;
                     }
-                    return rtm.sendMessage(response, message.channel)
-                })
+                    return rtm.sendMessage(response, message.channel);
+                });
             } catch (error) {
                 console.log(error);
                 console.log(res);
-                console.log("It went wrong in response")
+                console.log("It went wrong in response");
                 rtm.sendMessage("Sorry, I don't know what you are talking about", message.channel);
             }
 
@@ -49,7 +49,7 @@ function handleOnMessage(message) {
 }
 
 function addAuthenticatedHandler(rtm, handler) {
-    rtm.on('authenticated', handler);
+    rtm.on("authenticated", handler);
 }
 
 
@@ -58,8 +58,8 @@ module.exports.init = function slackClient(token, logLevel, nlpClient, serviceRe
     nlp = nlpClient;
     registry = serviceRegistry;
     addAuthenticatedHandler(rtm, handleOnAuthenticated);
-    rtm.on('message', handleOnMessage);
+    rtm.on("message", handleOnMessage);
     return rtm;
-}
+};
 
 module.exports.addAuthenticatedHandler = addAuthenticatedHandler;
