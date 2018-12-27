@@ -1,5 +1,7 @@
 "use strict";
 const config = require("../config");
+const log = config.log();
+
 const SlackClient = require("../server/slackClient");
 const service = require("../server/service")(config);
 const http = require("http");
@@ -13,20 +15,19 @@ const witClient = new WitClient(witToken);
 service.use(bodyParser.json());
 // service.use(bodyParser.urlencoded({extended : true}));
 const serviceRegistry = service.get("serviceRegistry");
-const slackClient = new SlackClient(config.slackToken, config.slackLogLevel, witClient, serviceRegistry);
+const slackClient = new SlackClient(config.slackToken, config.slackLogLevel, witClient, serviceRegistry, log);
 
 slackClient.start(() => {
     server.listen(process.env.PORT || 5000);
 });
 
 server.on("listening", function() {
-    console.log(`IRIS is listening on ${server.address().port} in ${service.get("env")} mode.`);
+    log.info(`IRIS is listening on ${server.address().port} in ${service.get("env")} mode.`);
 });
 
 
 //my own stuff - had to authenticate the url
 service.get("/", (req, res) => {
-    console.log("Yeah!!!!");
     res.end("Finally baby!!!!!");
 });
 
