@@ -23,10 +23,10 @@ describe("Service Registry", () => {
         });
         it("should update a service", () => {
             const serviceRegistry = new ServiceRegistry(30, log);
-            serviceRegistry.add("test", "127.0.0.1", 9999);
+            serviceRegistry.add("test", "127.0.0.1", 9999, "some token");
             const testIntent1 = serviceRegistry.get("test");
 
-            serviceRegistry.add("test", "127.0.0.1", 9999);
+            serviceRegistry.add("test", "127.0.0.1", 9999, "some token");
             const testIntent2 = serviceRegistry.get("test");
 
             Object.keys(serviceRegistry._services).length.should.equal(1);
@@ -37,8 +37,8 @@ describe("Service Registry", () => {
     describe("remove", () => {
         it("should remove a service from the registry", () => {
             const serviceRegistry = new ServiceRegistry(30, log);
-            serviceRegistry.add("test", "127.0.0.1", 9999);
-            serviceRegistry.remove("test", "127.0.0.1", 9999);
+            serviceRegistry.add("test", "127.0.0.1", 9999, "some token");
+            serviceRegistry.remove("test", "127.0.0.1", 9999, "some token");
             const testIntent = serviceRegistry.get("test");
             should.not.exist(testIntent);
         });
@@ -47,7 +47,7 @@ describe("Service Registry", () => {
     describe ("_cleanup", () => {
         it("should remove expired service", () => {
             const serviceRegistry = new ServiceRegistry(-1, log);
-            serviceRegistry.add("test", "127.0.0.1", 9999);
+            serviceRegistry.add("test", "127.0.0.1", 9999, "some token");
             const testIntent = serviceRegistry.get("test");
             should.not.exist(testIntent);
         });
