@@ -7,6 +7,13 @@
     "test": "SET NODE_ENV=test&& eslint bin server && nyc mocha --recursive --exit test",
     "start": "node bin/run.js"
   },
+  "engines":{
+    "node" : "10.14.1"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/buhaytza2005/iris.git"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
