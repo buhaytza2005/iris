@@ -1,15 +1,15 @@
 'use strict';
-
+const config = require('../config')
 const slackClient = require('../server/slackClient');
 const service = require('../server/service');
 const http = require('http');
 const server = http.createServer(service);
 const bodyParser = require("body-parser") ;
 
-const witToken = "wit_token";
+const witToken = config.witToken;
 const witClient = require("../server/witClient")(witToken);
-const slackToken = 'slack_token';
-const slackLogLevel = 'verbose';
+const slackToken = config.slackToken;
+const slackLogLevel = 'debug';
 
 
 service.use(bodyParser.json());
@@ -30,7 +30,7 @@ server.on('listening', function() {
 //my own stuff - had to authenticate the url
 service.get("/", (req, res) => {
     console.log("Yeah!!!!")
-    res.end("FInally baby!!!!!")
+    res.end("Finally baby!!!!!")
 });
 
 // service.post("/post", (req, res) => {

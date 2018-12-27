@@ -1,8 +1,7 @@
 'use strict';
 
-const RtmClient = require('@slack/client').RtmClient;
-const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
-const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
+const RtmClient = require('@slack/client').RTMClient;
+
 let rtm = null;
 let nlp = null;
 let registry = null;
@@ -13,7 +12,7 @@ function handleOnAuthenticated(rtmStartData) {
 }
 
 function handleOnMessage(message) {
-
+    
     if(message.text.toLowerCase().includes("iris")) {
         nlp.ask(message.text, (err, res) => {
             if (err) {
@@ -27,7 +26,7 @@ function handleOnMessage(message) {
                 }
 
                 const intent = require("./intents/" + res.intent[0].value + "Intent");
-
+                console.log("made is this far");
                 intent.process(res, registry, (error, response) => {
                     if (error){
                         console.log(error.message);
@@ -38,6 +37,7 @@ function handleOnMessage(message) {
             } catch (error) {
                 console.log(error);
                 console.log(res);
+                console.log("It went wrong in response")
                 rtm.sendMessage("Sorry, I don't know what you are talking about", message.channel);
             }
 
@@ -49,7 +49,7 @@ function handleOnMessage(message) {
 }
 
 function addAuthenticatedHandler(rtm, handler) {
-    rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, handler);
+    rtm.on('authenticated', handler);
 }
 
 
@@ -58,7 +58,7 @@ module.exports.init = function slackClient(token, logLevel, nlpClient, serviceRe
     nlp = nlpClient;
     registry = serviceRegistry;
     addAuthenticatedHandler(rtm, handleOnAuthenticated);
-    rtm.on(RTM_EVENTS.MESSAGE, handleOnMessage);
+    rtm.on('message', handleOnMessage);
     return rtm;
 }
 
