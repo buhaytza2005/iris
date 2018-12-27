@@ -13,7 +13,7 @@ const WitClient = require("../server/witClient");
 const witClient = new WitClient(witToken);
 
 service.use(bodyParser.json());
-// service.use(bodyParser.urlencoded({extended : true}));
+
 const serviceRegistry = service.get("serviceRegistry");
 const slackClient = new SlackClient(config.slackToken, config.slackLogLevel, witClient, serviceRegistry, log);
 
