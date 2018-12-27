@@ -1,19 +1,6 @@
 "use strict";
 
 const RtmClient = require("@slack/client").RTMClient;
-
-
-
-
-
-// module.exports.init = function slackClient(token, logLevel, nlpClient, serviceRegistry) {
-//     rtm = new RtmClient(token, {logLevel: logLevel});
-//     nlp = nlpClient;
-//     registry = serviceRegistry;
-//     addAuthenticatedHandler(rtm, handleOnAuthenticated);
-//     rtm.on("message", handleOnMessage);
-//     return rtm;
-// };
 class SlackClient {
 
     constructor(token, logLevel, nlp, registry) {
