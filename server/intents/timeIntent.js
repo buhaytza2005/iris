@@ -12,7 +12,7 @@ module.exports.process = function process(intentData, registry, log, cb) {
     const location = intentData.location[0].value;
     const service = registry.get("time");
     if (!service) return cb(false, "No service available");
-
+    // almost done
     //for online
     // request.get(`https://iris-time.herokuapp.com/service/${location}`, (err, res) =>{
 
