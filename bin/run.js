@@ -18,7 +18,7 @@ const serviceRegistry = service.get("serviceRegistry");
 const slackClient = new SlackClient(config.slackToken, config.slackLogLevel, witClient, serviceRegistry, log);
 
 slackClient.start(() => {
-    server.listen(process.env.PORT || 5000);
+    server.listen(5000);
 });
 
 server.on("listening", function() {
