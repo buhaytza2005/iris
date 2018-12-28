@@ -11,7 +11,7 @@ module.exports = {
     deploy: {
         production: {
             user: "node",
-            host: "172-31-89-93",
+            host: "3.82.138.13",
             ref: "origin/master",
             repo: "https://github.com/buhaytza2005/iris.git",
             path: "/srv/production",
