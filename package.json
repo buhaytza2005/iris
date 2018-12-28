@@ -4,8 +4,8 @@
   "description": "",
   "main": "server/service.js",
   "scripts": {
-    "localTest": "SET NODE_ENV=test&& eslint bin server && nyc mocha --recursive --exit test",
-    "test": "NODE_ENV=test && eslint bin server && nyc mocha --recursive --exit test",
+    "localTest": "SET NODE_ENV=test&& snyk test && eslint bin server && nyc mocha --recursive --exit test",
+    "test": "NODE_ENV=test && snyk test && eslint bin server && nyc mocha --recursive --exit test",
     "start": "node bin/run.js"
   },
   "engines":{
